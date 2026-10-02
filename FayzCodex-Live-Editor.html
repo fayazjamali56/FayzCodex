@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FayzCodex</title>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=Space+Grotesk:wght@600;700&display=swap">
+<style>
+:root{--bg1:#12082e;--bg2:#0b3a4a;--panel:#171433;--bar:#201b45;--line:#34306a;--text:#e9e6ff;--dim:#9a96c9;--accent:#2de2c4;--hot:#ff5c8a;--gut:#120f2a;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*,*::before,*::after{box-sizing:inherit}
+html,body{height:100%;margin:0}
+body{background:radial-gradient(1200px 700px at 10% -10%,#4b1d9a55,transparent 60%),radial-gradient(900px 600px at 100% 100%,#0fa3a355,transparent 60%),linear-gradient(135deg,var(--bg1),var(--bg2));color:var(--text);font-family:'Space Grotesk',system-ui,sans-serif;display:flex;flex-direction:column;padding:14px;gap:12px}
+header{display:flex;align-items:center;justify-content:space-between;gap:12px}
+.logo{font-size:28px;font-weight:700;letter-spacing:.2px}
+.logo b{background:linear-gradient(90deg,var(--accent),#7aa2ff 60%,var(--hot));-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo small{font-weight:600;color:var(--dim);font-size:13px;margin-left:10px}
+.stage{flex:1;min-height:0;display:grid;grid-template-columns:1fr minmax(360px,540px) 1fr;gap:34px;align-items:stretch}
+.shell{height:100%;max-height:none;display:grid;grid-template-columns:1fr;grid-template-rows:1fr 1fr;border:3px solid #4b43a8;border-radius:34px;overflow:hidden;background:var(--panel);box-shadow:0 0 0 6px #ffffff0d,0 30px 80px #000a,0 0 70px #2de2c433}
+.q{display:flex;flex-direction:column;gap:34px;justify-content:center}
+.q.l{text-align:right}
+.q p{margin:0;font-size:clamp(15px,1.55vw,23px);font-weight:600;line-height:1.35;color:var(--text)}
+.q cite{display:block;margin-top:9px;font:500 13px 'JetBrains Mono',monospace;font-style:normal;color:var(--accent)}
+.q.l p{margin-left:auto;max-width:340px}.q.r p{max-width:340px}
+.pane{display:flex;flex-direction:column;min-width:0;min-height:0}
+.pane+.pane{border-top:2px solid var(--line)}
+.bar{height:42px;flex:none;display:flex;align-items:stretch;justify-content:space-between;background:var(--bar);border-bottom:1px solid var(--line);padding-right:10px}
+.tabs{display:flex}
+.tab{display:flex;align-items:center;gap:9px;padding:0 18px;background:none;border:0;border-bottom:3px solid transparent;color:var(--dim);font:500 13px 'JetBrains Mono',monospace;cursor:pointer}
+.tab i{width:11px;height:11px;border-radius:3px;display:block}
+.tab[data-t=html] i{background:#ff7a45}.tab[data-t=css] i{background:#3b8bff}.tab[data-t=js] i{background:#ffc53d}
+.tab.on{color:var(--text);background:#2a2560;border-bottom-color:var(--accent)}
+.tab:focus-visible,.btn:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+.live{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;font:500 14px 'JetBrains Mono',monospace;color:var(--dim);letter-spacing:.08em}
+.dot{width:10px;height:10px;border-radius:50%;background:var(--accent);box-shadow:0 0 0 0 #2de2c488;animation:pulse 1.8s infinite}
+@keyframes pulse{70%{box-shadow:0 0 0 9px #2de2c400}100%{box-shadow:0 0 0 0 #2de2c400}}
+@media (prefers-reduced-motion:reduce){.dot{animation:none}}
+.btns{display:flex;align-items:center;gap:8px}
+.btn{background:#2a2560;border:1px solid var(--line);color:var(--text);border-radius:8px;padding:7px 13px;font:500 13px 'JetBrains Mono',monospace;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.ed{flex:1;min-height:0;display:flex;background:#100d26}
+.gut{flex:none;width:46px;overflow:hidden;background:var(--gut);color:#5d5a96;text-align:right;padding:14px 10px 14px 0;font:400 14px/22px 'JetBrains Mono',monospace;white-space:pre;user-select:none;border-right:1px solid var(--line)}
+textarea{flex:1;min-width:0;resize:none;border:0;outline:0;background:transparent;color:#e9e6ff;caret-color:var(--accent);padding:14px;font:400 14px/22px 'JetBrains Mono',monospace;white-space:pre;overflow:auto;tab-size:2}
+textarea::selection{background:#5a4bd066}
+iframe{flex:1;border:0;background:#fff;width:100%}
+@media (min-width:901px){header{position:absolute;top:16px;left:22px;right:22px;z-index:2;pointer-events:none}header>*{pointer-events:auto}.logo small{display:none}}
+@media (max-width:900px){.stage{grid-template-columns:1fr}.q{display:none}.shell{max-height:none}}
+@media (max-width:760px){.tab{padding:0 12px}.logo small{display:none}}
+</style>
+</head>
+<body>
+<header><div class="logo"><b>FayzCodex</b><small>write code, see it live</small></div><div class="btns"><button class="btn" id="dl">Download</button><button class="btn" id="copy">Copy</button><button class="btn" id="reset">Reset</button></div></header>
+<div class="stage"><aside class="q l"><p>“Talk is cheap. Show me the code.”<cite>Linus Torvalds</cite></p><p>“Make it work, make it right, make it fast.”<cite>Kent Beck</cite></p><p>“The best way to predict the future is to invent it.”<cite>Alan Kay</cite></p></aside>
+<main class="shell">
+  <section class="pane">
+    <div class="bar"><div class="tabs" role="tablist">
+      <button class="tab on" data-t="html" role="tab"><i></i>HTML</button>
+      <button class="tab" data-t="css" role="tab"><i></i>CSS</button>
+      <button class="tab" data-t="js" role="tab"><i></i>JS</button>
+    </div></div>
+    <div class="ed"><div class="gut" id="gut">1</div><textarea id="ta" spellcheck="false" autocapitalize="off" autocomplete="off" aria-label="Code editor"></textarea></div>
+  </section>
+  <section class="pane">
+    <div class="bar"><div class="live"><span>LIVE</span><span class="dot"></span></div>
+      </div>
+    <iframe id="out" title="Live preview" sandbox="allow-scripts allow-modals"></iframe>
+  </section>
+</main>
+<aside class="q r"><p>“First, solve the problem. Then, write the code.”<cite>John Johnson</cite></p><p>“Premature optimization is the root of all evil.”<cite>Donald Knuth</cite></p><p>“Stay hungry, stay foolish.”<cite>Steve Jobs</cite></p></aside></div>
+<script>
+const START={html:'<h1>Hello from FayzCodex</h1>\n<p>Type here and watch it change.</p>',css:'body{\n  font-family:sans-serif;\n  padding:20px;\n}\nh1{color:#6d28d9}',js:'console.log("FayzCodex ready");'};
+const ta=document.getElementById('ta'),gut=document.getElementById('gut'),out=document.getElementById('out');
+const VOID=/^(area|base|br|col|embed|hr|img|input|link|meta|param|source|track|wbr)$/i;
+let tab='html',code=load();
+function load(){let c={};try{c=JSON.parse(localStorage.getItem('fayzcodex2')||'{}')}catch(e){}return {html:c.html??START.html,css:c.css??START.css,js:c.js??START.js}}
+function save(){try{localStorage.setItem('fayzcodex2',JSON.stringify(code))}catch(e){}}
+function lines(){const n=ta.value.split('\n').length;let s='';for(let i=1;i<=n;i++)s+=i+'\n';gut.textContent=s.trimEnd()}
+function show(){ta.value=code[tab];lines();gut.scrollTop=0;ta.scrollTop=0}
+let timer;
+function run(){clearTimeout(timer);timer=setTimeout(()=>{
+  out.srcdoc='<!DOCTYPE html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><style>'+code.css.replace(/<\/style/gi,'<\\/style')+'</style></head><body>'+code.html+'<script>'+code.js.replace(/<\/script/gi,'<\\/script')+'<\/script></body></html>';
+},250)}
+function ins(t){ta.focus();if(!document.execCommand('insertText',false,t)){ta.setRangeText(t,ta.selectionStart,ta.selectionEnd,'end')}}
+function caretBack(n){ta.selectionStart=ta.selectionEnd=ta.selectionStart-n}
+ta.addEventListener('input',e=>{
+  code[tab]=ta.value;lines();save();run();
+  if(tab==='html'&&e.inputType==='insertText'&&e.data==='>'){
+    const p=ta.selectionStart,before=ta.value.slice(0,p);
+    const m=before.match(/<([a-zA-Z][\w-]*)(\s[^<>]*)?>$/);
+    if(m&&!VOID.test(m[1])&&!/\/>$/.test(before)){const c='</'+m[1]+'>';ins(c);caretBack(c.length)}
+  }
+});
+const PAIRS={'(':')','[':']','{':'}','"':'"',"'":"'",'`':'`'};
+ta.addEventListener('keydown',e=>{
+  const v=ta.value,s=ta.selectionStart,en=ta.selectionEnd,pc=v[s-1]||'',nc=v[s]||'';
+  if(e.ctrlKey||e.metaKey||e.altKey)return;
+  if(e.key==='Tab'){e.preventDefault();ins('  ');return}
+  if(e.key==='Enter'){
+    const ls=v.lastIndexOf('\n',s-1)+1,ind=(v.slice(ls,s).match(/^\s*/)||[''])[0];
+    const between=(pc==='{'&&nc==='}')||(pc==='>'&&nc==='<'&&v[s+1]==='/');
+    e.preventDefault();
+    if(between){ins('\n'+ind+'  \n'+ind);caretBack(ind.length+1)}
+    else ins('\n'+ind+(pc==='{'?'  ':''));
+    return;
+  }
+  if(PAIRS[e.key]&&s===en){
+    const q=e.key==='"'||e.key==="'"||e.key==='`';
+    if(q&&nc===e.key){e.preventDefault();ta.selectionStart=ta.selectionEnd=s+1;return}
+    if(q&&/\w/.test(pc))return;
+    e.preventDefault();ins(e.key+PAIRS[e.key]);caretBack(1);return;
+  }
+  if((e.key===')'||e.key===']'||e.key==='}')&&nc===e.key&&s===en){e.preventDefault();ta.selectionStart=ta.selectionEnd=s+1;return}
+  if(e.key==='Backspace'&&s===en&&PAIRS[pc]&&PAIRS[pc]===nc){e.preventDefault();ta.selectionStart=s-1;ta.selectionEnd=s+1;ins('')}
+});
+ta.addEventListener('scroll',()=>{gut.scrollTop=ta.scrollTop});
+document.querySelectorAll('.tab').forEach(b=>b.addEventListener('click',()=>{
+  code[tab]=ta.value;tab=b.dataset.t;
+  document.querySelectorAll('.tab').forEach(x=>x.classList.toggle('on',x===b));show();ta.focus();
+}));
+document.getElementById('reset').addEventListener('click',()=>{code={...START};save();show();run()});
+document.getElementById('dl').addEventListener('click',()=>{
+  const full='<!DOCTYPE html>\n<html>\n<head>\n<meta charset="utf-8">\n<style>\n'+code.css+'\n</style>\n</head>\n<body>\n'+code.html+'\n<script>\n'+code.js+'\n<\/script>\n</body>\n</html>';
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([full],{type:'text/html'}));a.download='fayzcodex-project.html';a.click();
+});
+document.getElementById('copy').addEventListener('click',e=>{
+  const full='<!DOCTYPE html>\n<html>\n<head>\n<meta charset="utf-8">\n<style>\n'+code.css+'\n</style>\n</head>\n<body>\n'+code.html+'\n<script>\n'+code.js+'\n<\/script>\n</body>\n</html>';
+  const t=document.createElement('textarea');t.value=full;document.body.appendChild(t);t.select();
+  let ok=false;try{ok=document.execCommand('copy')}catch(x){}t.remove();
+  const b=e.currentTarget;b.textContent=ok?'Copied':'Copy failed';setTimeout(()=>b.textContent='Copy',1400);
+});
+show();run();
+</script>
+</body>
+</html>
